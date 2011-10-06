@@ -1,0 +1,11 @@
+section { width: 70%; margin: auto; }
+
+section article { padding:1em 0 1em 0;}
+
+section article img { float:left; clear:left }
+
+section article p { margin: auto; height: 50%;}
+
+section form { width: 90%; margin:auto; padding-bottom: 2em; }
+    
+
