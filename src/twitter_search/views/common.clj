@@ -10,4 +10,6 @@
                (include-css "/css/reset.css" "/css/twitter-search.css")]
               [:body
                [:div#wrapper
-                content]]))
+                content]
+               (include-js  "/js/out/goog/base.js" "/js/search.js")
+               "<script type='text/javascript'>goog.require('twitter-search.core')</script>"]))
