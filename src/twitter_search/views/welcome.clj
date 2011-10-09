@@ -23,7 +23,9 @@
 
 (defpage "/main" {:as keyword} 
   (common/layout
-   (search-form keyword)))
+   (search-form keyword)
+   [:section]))
+
 
 (defn search-twitter
   "Retrieves tweets from Twitter containing the search-string"
@@ -44,12 +46,11 @@
 (defpage [:post "/main"] {:as keyword}
   (println keyword)
   (common/layout
-   [:section
    (search-form keyword)
-   (map tweet (search-twitter (:keyword keyword)))]))
+   [:section]))
 
 
 (defremote search [search-string]
-  (:profile_image_url (first (search-twitter "emacs"))))
+  (search-twitter search-string))
 
 
