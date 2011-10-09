@@ -32,11 +32,11 @@
   ([search-string num-tweets]
      (let [search-response
            (client/get "http://search.twitter.com/search.json"
-                       {:query-params {"q" search-string "rpp" num-tweets "lang" "EN"}})
+                       {:query-params {"q" search-string "page" "1" "rpp" num-tweets "lang" "EN"}})
            tweets (read-json (:body search-response))]
        (second (first (remove #(not (= (first %) :results)) tweets)))))
   ([search-string]
-     (search-twitter search-string 10)))
+     (search-twitter search-string 100)))
 
 (defpartial tweet [{:keys [text profile_image_url]}]
   [:article

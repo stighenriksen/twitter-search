@@ -5,9 +5,41 @@
             [pinot.remotes :as remotes]
             [pinot.events :as events]
             [goog.events :as ev]
+            [pinot.draw.visualization :as vis]
             )
   (:require-macros [pinot.macros :as pm]))
 (repl/connect "http://localhost:9000/repl")
+
+
+(def items (range 0 10))
+
+;;For SVG we have to namespace our elements
+(pm/defpartial canvas []
+                [:svg:svg {:width 1000 :height 800}])
+
+(pm/defpartial item [x]
+                [:svg:circle {:r (* 2 x)}])
+
+(dom/append (dom/query "#wrapper")
+            (canvas))
+
+(-> (vis/visual items)
+  (vis/elem item)
+  (vis/attr :stroke "#333")
+  (vis/attr :fill "blue")
+  (vis/attr :cx #(+ 20 (rand-int 800)))
+  (vis/attr :cy #(+ 80 (* 10 (mod % 4))))
+  (vis/enter (partial dom/append (dom/query "svg"))))
+
+(-> (vis/select item)
+  (vis/transition 500)
+  (vis/data items)
+  (vis/attr :cx #(* 70 %))
+  (vis/attr :cy #(+ 30 (* 20 (mod % 3))))
+  (vis/start))
+
+
+
 
 (pm/defpartial tweet [{:keys [text profile_image_url]}]
   [:article
